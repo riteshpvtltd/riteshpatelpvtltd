@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RS - Creation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header, footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .heading {
+            font-size: 48px; /* Increased heading size */
+            margin-bottom: 20px;
+            color: #444;
+            text-transform: uppercase; /* Capitalizes the heading text */
+        }
+
+        .options {
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            width: 60%;
+            max-width: 500px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .options:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .option {
+            margin-bottom: 30px;
+            font-size: 36px; /* Increased option text size */
+            font-weight: bold;
+            color: #444;
+            text-transform: uppercase; /* Capitalizes the option text */
+            font-family: 'Courier New', Courier, monospace; /* Different font */
+        }
+
+        input[type="checkbox"] {
+            transform: scale(3); /* Increased checkbox size */
+            margin-left: 15px;
+        }
+
+        footer {
+            margin-top: auto;
+        }
+
+        /* Responsive styling */
+        @media screen and (max-width: 600px) {
+            .options {
+                width: 90%;
+            }
+
+            .option {
+                font-size: 24px; /* Adjust option text size for smaller screens */
+            }
+
+            .heading {
+                font-size: 36px; /* Adjust heading size for smaller screens */
+            }
+
+            input[type="checkbox"] {
+                transform: scale(2); /* Adjust size for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>RS - Creation</h1>
+</header>
+
+<section>
+    <h2 class="heading">Choose Your Partner</h2>
+    <div class="options">
+        <div class="option">
+            <label for="option1">Beautiful</label>
+            <input type="checkbox" id="option1" onclick="handleCheckboxClick(this)">
+        </div>
+        <div class="option">
+            <label for="option2">Seal Pack</label>
+            <input type="checkbox" id="option2" onclick="handleCheckboxClick(this)">
+        </div>
+        <div class="option">
+            <label for="option3">Money</label>
+            <input type="checkbox" id="option3" onclick="handleCheckboxClick(this)">
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2024 RS - Creation. All rights reserved.</p>
+</footer>
+
+<script>
+    let checkedBoxes = [];
+
+    function limitCheckboxes() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+        checkboxes.forEach(cb => {
+            if (cb.checked && !checkedBoxes.includes(cb.id)) {
+                checkedBoxes.push(cb.id);  // Add newly checked box to the array
+            } else if (!cb.checked && checkedBoxes.includes(cb.id)) {
+                checkedBoxes = checkedBoxes.filter(id => id !== cb.id);  // Remove unchecked box
+            }
+        });
+
+        if (checkedBoxes.length > 2) {
+            const oldestCheckedBox = checkedBoxes.shift();  // Remove the first element (oldest checked box)
+            document.getElementById(oldestCheckedBox).checked = false;  // Uncheck the box
+        }
+    }
+
+    function handleCheckboxClick(checkbox) {
+        limitCheckboxes();  // Ensure only two boxes can be checked at a time
+    }
+</script>
+
+</body>
+</html>
